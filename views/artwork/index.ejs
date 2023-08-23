@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtWork</title>
+</head>
+<body>
+    <h1>Art work for sale</h1>
+
+    <ul>
+         <% products.forEach(product => { %>
+            <li>
+                <h2>
+                    <a href="/artwork/<%= product._id %>"><%= product.title %></a>
+                </h2>
+
+                <!-- <p>Artist: <%= %></p>
+                <p>Desctiption: <%= product.description %></p>
+                <p>Price: <%= product.price %></p>
+                <p>Image <%= product.image %></p>
+                <p>Category <%= product.category %></p>
+                <p>Date: <%= product.dateposted %></p> -->
+                <!-- Display other fields as needed -->
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
