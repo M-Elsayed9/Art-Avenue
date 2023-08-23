@@ -1,6 +1,6 @@
 const products = [
     {
-        artist: "JohnDoe",
+        user: "JohnDoe",
         title: "Sunset Bliss",
         description: "A beautiful sunset painting.",
         price: 200,
@@ -9,7 +9,7 @@ const products = [
         datePosted: new Date()
     },
     {
-        artist: "JaneSmith",
+        user: "JaneSmith",
         title: "Ocean's Depth",
         description: "Deep ocean view with vibrant marine life.",
         price: 250,
@@ -18,7 +18,7 @@ const products = [
         datePosted: new Date()
     },
     {
-        artist: "AliceJohnson",
+        user: "AliceJohnson",
         title: "Desert Mirage",
         description: "A mesmerizing view of the vast desert under the noon sun.",
         price: 150,
@@ -27,7 +27,7 @@ const products = [
         datePosted: new Date()
     },
     {
-        artist: "BobMartin",
+        user: "BobMartin",
         title: "Mountain's Echo",
         description: "A serene landscape of snow-capped mountains.",
         price: 300,
@@ -36,7 +36,7 @@ const products = [
         datePosted: new Date()
     },
     {
-        artist: "CharlieBrown",
+        user: "CharlieBrown",
         title: "Cosmic Dance",
         description: "Abstract portrayal of the universe and celestial bodies.",
         price: 280,

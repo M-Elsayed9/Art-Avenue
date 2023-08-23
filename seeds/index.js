@@ -25,9 +25,9 @@ const insertData = async () => {
 
         // Map the usernames from mockProducts to their respective ObjectId from insertedUsers
         const updatedProducts = mockProducts.map(product => {
-            const user = insertedUsers.find(u => u.username === product.artist);
+            const user = insertedUsers.find(u => u.username === product.user);
             if (user) {
-                product.artist = user._id;
+                product.user = user._id;
                 return product;
             } else {
                 console.error(`User not found for product: ${product.title}`);
@@ -39,9 +39,9 @@ const insertData = async () => {
         const insertedProducts = await Product.insertMany(updatedProducts);
         console.log("Products added:", insertedProducts);
 
-        // Update users' products field with inserted product ObjectIds
+        //Update users' products field with inserted product ObjectIds
         for (let user of insertedUsers) {
-            const userProducts = insertedProducts.filter(p => p.artist.toString() === user._id.toString());
+            const userProducts = insertedProducts.filter(p => p.user.toString() === user._id.toString());
             user.products = userProducts.map(p => p._id);
             await user.save(); // Save updated user
         }
