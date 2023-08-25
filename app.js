@@ -3,11 +3,12 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
-const { productSchema } = require('./schemas.js');      // Joi schema
+const { productSchema, reviewSchema } = require('./schemas.js');      // Joi schema
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const user = require('./models/user');
 const Product = require('./models/product');
+const Review = require('./models/review');
 
 mongoose.connect('mongodb://127.0.0.1:27017/ArtAvenue-DB', {
     useNewUrlParser: true,
@@ -43,6 +44,16 @@ const validateProduct = (req, res, next) => {
     }
 }
 
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 app.get('/users', catchAsync(async (req, res) => {
      const users = await user.find();
         res.render('users/index', { users: users });
@@ -65,7 +76,7 @@ app.post('/artwork',validateProduct, catchAsync(async (req, res, next) => {
 }));
 
 app.get('/artwork/:id', catchAsync(async (req, res) => { 
-    const products = await Product.findById(req.params.id);
+    const products = await Product.findById(req.params.id).populate('reviews');
     res.render('artwork/show', { products});
 }));
 
@@ -85,6 +96,23 @@ app.delete('/artwork/:id', catchAsync(async (req, res) => {
     await Product.findByIdAndDelete(id);
     res.redirect('/artwork');
 }));
+
+app.post('/artwork/:id/reviews', validateReview, catchAsync(async (req, res) => {
+    const products = await Product.findById(req.params.id);
+    const review = new Review(req.body.review);
+    products.reviews.push(review);
+    await review.save();
+    await products.save();
+    res.redirect(`/artwork/${products._id}`)
+}));
+
+app.delete('/artwork/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Product.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/artwork/${id}`);
+}));
+
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
