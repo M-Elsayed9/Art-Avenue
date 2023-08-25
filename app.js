@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
 const user = require('./models/user');
-const product = require('./models/product');
+const Product = require('./models/product');
 
 mongoose.connect('mongodb://127.0.0.1:27017/ArtAvenue-DB', {
     useNewUrlParser: true,
@@ -15,14 +17,16 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
-const app = express();
+const app = express(); 
 
-
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('home');
 });
 
 app.get('/users', async (req, res) => {
@@ -31,22 +35,41 @@ app.get('/users', async (req, res) => {
 });
 
 app.get('/artwork', async (req, res) => { 
-    const products = await product.find();
+    const products = await Product.find();
     res.render('artwork/index', { products: products });
 });
 
-app.get('/artwork/new', async (req, res) => {
+app.get('/artwork/new', (req, res) => {
     res.render('artwork/new');
 });
 
+app.post('/artwork', async (req, res) => {
+    const products = new Product(req.body.product);
+    await products.save();
+    res.redirect(`/artwork/${products._id}`)
+})
+
 app.get('/artwork/:id', async (req, res) => { 
-    const products = await product.findById(req.params.id);
-    res.render('artwork/show', { products: products });
+    const products = await Product.findById(req.params.id);
+    res.render('artwork/show', { products});
 });
 
+app.get('/artwork/:id/edit', async (req, res) => {  
+    const products = await Product.findById(req.params.id);
+    res.render('artwork/edit', { products });
+});
 
+app.put('/artwork/:id', async (req, res) => {
+    const { id } = req.params;
+    const products = await Product.findByIdAndUpdate(id, { ...req.body.product });
+    res.redirect(`/artwork/${products._id}`)
+});
 
-
+app.delete('/artwork/:id', async (req, res) => {
+    const { id } = req.params;
+    await Product.findByIdAndDelete(id);
+    res.redirect('/artwork');
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

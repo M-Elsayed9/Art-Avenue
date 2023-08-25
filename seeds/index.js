@@ -24,27 +24,27 @@ const insertData = async () => {
         console.log("Users added:", insertedUsers);
 
         // Map the usernames from mockProducts to their respective ObjectId from insertedUsers
-        const updatedProducts = mockProducts.map(product => {
-            const user = insertedUsers.find(u => u.username === product.user);
-            if (user) {
-                product.user = user._id;
-                return product;
-            } else {
-                console.error(`User not found for product: ${product.title}`);
-                return null; // If no user is found, return null (we'll filter these out before inserting)
-            }
-        }).filter(product => product !== null); // Filter out any null values
+        // const updatedProducts = mockProducts.map(product => {
+        //     const user = insertedUsers.find(u => u.username === product.user);
+        //     if (user) {
+        //         product.user = user._id;
+        //         return product;
+        //     } else {
+        //         console.error(`User not found for product: ${product.title}`);
+        //         return null; // If no user is found, return null (we'll filter these out before inserting)
+        //     }
+        // }).filter(product => product !== null); // Filter out any null values
 
         // Insert products with the updated artist ObjectIds
-        const insertedProducts = await Product.insertMany(updatedProducts);
+        const insertedProducts = await Product.insertMany(mockProducts);
         console.log("Products added:", insertedProducts);
 
         //Update users' products field with inserted product ObjectIds
-        for (let user of insertedUsers) {
-            const userProducts = insertedProducts.filter(p => p.user.toString() === user._id.toString());
-            user.products = userProducts.map(p => p._id);
-            await user.save(); // Save updated user
-        }
+        // for (let user of insertedUsers) {
+        //     const userProducts = insertedProducts.filter(p => p.user.toString() === user._id.toString());
+        //     user.products = userProducts.map(p => p._id);
+        //     await user.save(); // Save updated user
+        // }
     } catch (e) {
         console.log("Error:", e);
     } finally {

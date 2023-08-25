@@ -11,14 +11,6 @@ const userSchema = new mongoose.Schema({
     minLength: 8,
     },
 
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'product'
-        }
-    ],
-
-    
     specialty: String,
     profileImage: String,
     bio: String,

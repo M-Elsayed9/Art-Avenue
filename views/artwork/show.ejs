@@ -1,13 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
-    <h2>Title: <%= products.title %></h2>
-    <h3>Description: <%= products.description %></h3>
-    <h3>Price: <%= products.price %></h3>
-</body>
-</html>
+<% layout('layouts/boilerplate') %>
+<!-- <h2>Title: <%= products.title %></h2>
+<h3>Artist: <%= products.user %></h3>
+<img src="<%= products.image %>" alt="">
+<h3>Description: <%= products.description %></h3>
+ <footer>
+  <a href="/artwork">Back to Gallery</a>
+</footer>-->
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mb-3">
+            <img src="<%= products.image%>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= products.title%></h5>
+                <p class="card-text">By: <%= products.user%></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-muted"><%= products.description%></li>
+                <li class="list-group-item"><%= products.category%></li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link btn btn-info" href="/artwork/<%=products._id%>/edit">Edit</a>
+                <form class="d-inline" action="/artwork/<%=products._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

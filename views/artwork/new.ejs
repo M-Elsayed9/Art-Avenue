@@ -1,20 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>new artwork</title>
-  </head>
-  <body>
-    <form action="/artwork" methods="POST">
-      <div>
-        <label for="title">Title</label>
-        <input type="text" name="artwork[title]" id="title"/>
-      </div>
-      <div>
-        <label for="title">Title</label>
-        <input type="text" name="artwork[title]" id="title"/>
-      </div>
-    </form>
-  </body>
-</html>
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <h1 class="text-center">New Artwork</h1>
+    <div class="col-6 offset-3">
+        <form action="/artwork" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="product[title]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="user">Artist</label>
+                <input class="form-control" type="text" id="user" name="product[user]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image Url</label>
+                <input class="form-control" type="text" id="image" name="product[image]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="category">Category</label>
+                <input class="form-control" type="text" id="category" name="product[category]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="product[description]" required ></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add Artwork</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+  
+</script>
