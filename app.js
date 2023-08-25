@@ -3,12 +3,15 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
-const { productSchema, reviewSchema } = require('./schemas.js');      // Joi schema
+const session = require('express-session');
+const flash = require('connect-flash');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const user = require('./models/user');
-const Product = require('./models/product');
-const Review = require('./models/review');
+
+
+const productRoutes = require('./routes/products');
+const reviewRoutes = require('./routes/reviews');
 
 mongoose.connect('mongodb://127.0.0.1:27017/ArtAvenue-DB', {
     useNewUrlParser: true,
@@ -29,90 +32,40 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+
+app.use(session(sessionConfig))
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-const validateProduct = (req, res, next) => {
-    
-    const { error } = productSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
-
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
+app.use('/artwork', productRoutes);
+app.use('/artwork/:id/reviews', reviewRoutes);
 
 app.get('/users', catchAsync(async (req, res) => {
      const users = await user.find();
         res.render('users/index', { users: users });
 }));
-
-app.get('/artwork', catchAsync(async (req, res) => { 
-    const products = await Product.find();
-    res.render('artwork/index', { products: products });
-}));
-
-app.get('/artwork/new', (req, res) => {
-    res.render('artwork/new');
-});
-
-app.post('/artwork',validateProduct, catchAsync(async (req, res, next) => {
-    //if (!req.body.product) throw new ExpressError('Invalid Artwork Data', 400);
-    const products = new Product(req.body.product);
-    await products.save();
-        res.redirect(`/artwork/${products._id}`)
-}));
-
-app.get('/artwork/:id', catchAsync(async (req, res) => { 
-    const products = await Product.findById(req.params.id).populate('reviews');
-    res.render('artwork/show', { products});
-}));
-
-app.get('/artwork/:id/edit', catchAsync(async (req, res) => {  
-    const products = await Product.findById(req.params.id);
-    res.render('artwork/edit', { products });
-}));
-
-app.put('/artwork/:id', validateProduct, catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const products = await Product.findByIdAndUpdate(id, { ...req.body.product });
-    res.redirect(`/artwork/${products._id}`)
-}));
-
-app.delete('/artwork/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Product.findByIdAndDelete(id);
-    res.redirect('/artwork');
-}));
-
-app.post('/artwork/:id/reviews', validateReview, catchAsync(async (req, res) => {
-    const products = await Product.findById(req.params.id);
-    const review = new Review(req.body.review);
-    products.reviews.push(review);
-    await review.save();
-    await products.save();
-    res.redirect(`/artwork/${products._id}`)
-}));
-
-app.delete('/artwork/:id/reviews/:reviewId', catchAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await Product.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/artwork/${id}`);
-}));
-
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
@@ -123,8 +76,6 @@ app.use((err, req, res, next) => {
     const {statusCode = 500, message = 'Something went wrong!'} = err;
     res.status(statusCode).render('error', { err });
 });
-
-
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
