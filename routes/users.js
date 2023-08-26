@@ -10,7 +10,9 @@ router.get("/register", (req, res) => {
   res.render("users/register");
 });
 
-router.post("/register", catchAsync(async (req, res, next) => {
+router.post(
+  "/register",
+  catchAsync(async (req, res, next) => {
     try {
       const { email, username, password } = req.body;
       const user = new User({ email, username });
@@ -31,10 +33,14 @@ router.get("/login", (req, res) => {
   res.render("users/login");
 });
 
-router.post("/login", storeReturnTo, passport.authenticate("local", {
+router.post(
+  "/login",
+  storeReturnTo,
+  passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/login",
-  }), (req, res) => {
+  }),
+  (req, res) => {
     req.flash("success", "welcome back!");
     const redirectUrl = res.locals.returnTo || "/artwork";
     delete req.session.returnTo;
@@ -50,6 +56,6 @@ router.get("/logout", (req, res, next) => {
     req.flash("success", "Goodbye!");
     res.redirect("/artwork");
   });
-}); 
+});
 
 module.exports = router;

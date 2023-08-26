@@ -27,7 +27,6 @@ db.once("open", () => {
 
 const app = express();
 
-
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -44,8 +43,8 @@ const sessionConfig = {
   cookie: {
     httpOnly: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
 };
 
 app.use(session(sessionConfig));
@@ -79,9 +78,9 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    const { statusCode = 500, message = "Something went wrong!" } = err;
-    if (!err.message) err.message = "Something Went Wrong!";
-    res.status(statusCode).render("error", { err });
+  const { statusCode = 500, message = "Something went wrong!" } = err;
+  if (!err.message) err.message = "Something Went Wrong!";
+  res.status(statusCode).render("error", { err });
 });
 
 app.listen(3000, () => {

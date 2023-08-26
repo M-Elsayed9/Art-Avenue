@@ -1,6 +1,10 @@
 #Art Avenue Web Application
 
 Welcome to **Art Avenue**, a sleek web application built with Node.js, Express.js, Mongoose, MongoDB, Bootstrap 5, and EJS. Whether you are a developer looking to contribute or someone who's keen on understanding the internals, this README provides an overview of the application's dependencies and their purposes.
+ 
+ -**Youtube link**: https://www.youtube.com/watch?v=sLPswor18ew
+
+ this is a breif overview of the project, for more details please check the rest of this file! 
 
 ##About Art Avenue
 
@@ -116,13 +120,13 @@ git clone https://github.com/M-Elsayed9/CTP-Hackathon.git
 
 Change your current directory to the Art-Avenue folder:
 
-cd Art-Avenue
+cd M-Elsayed9/CTP-Hackathon
 
 3. **Install Node Dependencies**
 
 Make sure you have Node.js and npm installed on your machine. Once that's confirmed, install the project dependencies by running:
 
-npm install
+**npm install**
 
 This command fetches all the dependencies mentioned in the package.json file and installs them locally.
 
@@ -131,20 +135,20 @@ This command fetches all the dependencies mentioned in the package.json file and
 Ensure you have MongoDB set up on your machine. If not, you can follow the official documentation to get it installed.
 
 Once MongoDB is running, make sure your application is connected by setting up the necessary environment variables or direct configurations in your application code. Database name: ArtAvenue-DB
-
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
 
 5. **Run the Application**
 
 Now that everything is set up, you can run the application using:
 
 
-npm start
+**npm start**
 
 This will start the server with nodemon, which will auto-restart upon changes to any files.
 
 7. **Open in Browser**
 
-By default, the application might run on http://localhost:3000. Open this link in your browser to interact with the app.
+By default, the application runs on http://localhost:3000. Open this link in your browser to interact with the app.
 
 **IMPORTANT NOTE:** 
 
@@ -156,3 +160,8 @@ or just use these links from the Unsplash API:
 >https://source.unsplash.com/collection/97443817/420x340
 >https://source.unsplash.com/collection/65179341/420x340
 >https://source.unsplash.com/collection/9542436/420x340
+
+using these links will change the picture whenever you refresh the page.
+**ANOTHER IMPORTANT NOTE**
+
+when you open the application in your browser, there will not be any user/art data. so create a couple of users(no duplicates), add some artwork, and try out our platform! we appreciate your feedback.

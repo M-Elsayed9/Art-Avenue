@@ -1,43 +1,78 @@
 <% layout('layouts/boilerplate')%>
 <div class="row">
-    <h1 class="text-center">Edit Artwork</h1>
-    <div class="col-6 offset-3">
-        <form action="/artwork/<%=products._id%>?_method=PUT" method="POST" novalidate class="validated-form" >
-            <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="product[title]"
-                    value="<%=products.title %>"required>
-                    <!-- <div class="valid-feeback">looks good!</div> -->
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="user">Artist</label>
-                <input class="form-control" type="text" id="user" name="product[user]"
-                    value="<%=products.user %>"required>
-                    <!-- <div class="valid-feeback">looks good!</div> -->
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="image">Image Url</label>
-                <input class="form-control" type="text" id="image" name="product[image]"
-                    value="<%=products.image %>"required>
-                    <!-- <div class="valid-feeback">looks good!</div> -->
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="category">Category</label>
-                <input class="form-control" type="text" id="category" name="product[category]"
-                    value="<%=products.category %>"required>
-                    <!-- <div class="valid-feeback">looks good!</div> -->
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description"
-                    name="product[description]"required><%= products.description %> </textarea>
-                    <!-- <div class="valid-feeback">looks good!</div> -->
-            </div>
-            <div class="mb-3">
-                <button class="btn btn-info">Update</button>
-            </div>
-        </form>
-        <a href="/artwork/<%= products._id%>">Back</a>
-
-    </div>
+  <h1 class="text-center">Edit Artwork</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/artwork/<%=products._id%>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          name="product[title]"
+          value="<%=products.title %>"
+          required
+        />
+        <!-- <div class="valid-feeback">looks good!</div> -->
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="user">Artist</label>
+        <input
+          class="form-control"
+          type="text"
+          id="user"
+          name="product[user]"
+          value="<%=products.user %>"
+          required
+        />
+        <!-- <div class="valid-feeback">looks good!</div> -->
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="image">Image Url</label>
+        <input
+          class="form-control"
+          type="text"
+          id="image"
+          name="product[image]"
+          value="<%=products.image %>"
+          required
+        />
+        <!-- <div class="valid-feeback">looks good!</div> -->
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="category">Category</label>
+        <input
+          class="form-control"
+          type="text"
+          id="category"
+          name="product[category]"
+          value="<%=products.category %>"
+          required
+        />
+        <!-- <div class="valid-feeback">looks good!</div> -->
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+          class="form-control"
+          type="text"
+          id="description"
+          name="product[description]"
+          required
+        >
+<%= products.description %> </textarea
+        >
+        <!-- <div class="valid-feeback">looks good!</div> -->
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-info">Update</button>
+      </div>
+    </form>
+    <a href="/artwork/<%= products._id%>">Back</a>
+  </div>
 </div>
