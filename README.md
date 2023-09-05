@@ -1,10 +1,6 @@
 #Art Avenue Web Application
 
 Welcome to **Art Avenue**, a sleek web application built with Node.js, Express.js, Mongoose, MongoDB, Bootstrap 5, and EJS. Whether you are a developer looking to contribute or someone who's keen on understanding the internals, this README provides an overview of the application's dependencies and their purposes.
- 
- -**Youtube link**: https://www.youtube.com/watch?v=sLPswor18ew
-
- this is a breif overview of the project, for more details please check the rest of this file! 
 
 ##About Art Avenue
 
