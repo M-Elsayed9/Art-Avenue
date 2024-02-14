@@ -1,14 +1,14 @@
-#Art Avenue Web Application
+# Art Avenue Web Application
 
 Welcome to **Art Avenue**, a sleek web application built with Node.js, Express.js, Mongoose, MongoDB, Bootstrap 5, and EJS. Whether you are a developer looking to contribute or someone who's keen on understanding the internals, this README provides an overview of the application's dependencies and their purposes.
 
-##About Art Avenue
+## About Art Avenue
 
-###Overview:
+### Overview:
 
 Art Avenue is a platform designed for artists and art enthusiasts. At its core, the application serves as a bridge between artists eager to showcase their creations and the audience keen on admiring, rating, and reviewing the showcased art.
 
-###Key Features
+### Key Features
 
 - **Art Posting**: Artists can seamlessly upload and share their art pieces, be it digital paintings, sculptures, or any form of visual art.
 
@@ -16,27 +16,27 @@ Art Avenue is a platform designed for artists and art enthusiasts. At its core, 
 
 - **Coming Soon** - Art Marketplace: We're excited to announce that we'll soon be launching a marketplace feature. Artists will be able to put up their art for sale, allowing users to purchase original artworks directly through the platform.
 
-##Why Art Avenue?
+## Why Art Avenue?
 
 With the surge in digital art and the importance of online communities, Art Avenue aims to provide a space where the passion for art can be fostered, feedback can be given, and art can be celebrated in its various forms. Our upcoming features are aimed to further enhance the community experience and make art more accessible to enthusiasts globally.
 
 Join us in this artistic journey, whether you're an artist looking to gain recognition or an art lover seeking to discover and support emerging talents.
 
-##Authorization, Authentication, and Design Patterns
+## Authorization, Authentication, and Design Patterns
 
-###Security First
+### Security First
 
-###At Art Avenue, security is our top priority. We have implemented a robust authorization and authentication system to ensure that user data is safe, secure, and only accessible by those with the appropriate permissions.
+### At Art Avenue, security is our top priority. We have implemented a robust authorization and authentication system to ensure that user data is safe, secure, and only accessible by those with the appropriate permissions.
 
-###CRUD Operations
+### CRUD Operations
 
 Our application provides comprehensive CRUD (Create, Read, Update, Delete) capabilities, allowing users to have full control over their data, be it art posts, reviews, or profiles.
 
-###RESTful Design
+### RESTful Design
 
 Art Avenue follows the principles of REST (Representational State Transfer). This ensures that our API is intuitive, follows standard conventions, and is easy to integrate with, should you decide to build upon or adapt our platform.
 
-###MVC Architecture
+### MVC Architecture
 
 The backbone of Art Avenue's code structure is the MVC (Model-View-Controller) architecture. This separation of concerns ensures that our application is modular, maintainable, and scalable:
 
@@ -46,7 +46,7 @@ The backbone of Art Avenue's code structure is the MVC (Model-View-Controller) a
 
 By adhering to the MVC paradigm and other best practices, Art Avenue strives to provide a seamless experience for both developers and end-users alike.
 
-##Dependencies:
+## Dependencies:
 
 1. **connect-flash ^0.1.1**
 
@@ -98,7 +98,7 @@ DevDependencies
 
 Nodemon is a utility that monitors any changes in your source and automatically restarts the server. It’s an essential tool during the development process to ensure code changes reflect instantly.
 
-##Getting Started
+## Getting Started
 
 Now that you have an idea about each dependency, follow the installation steps or delve deeper into the docs to explore the functionalities.
 
@@ -115,8 +115,6 @@ git clone https://github.com/M-Elsayed9/CTP-Hackathon.git
 2. **Navigate to the Project Directory**
 
 Change your current directory to the Art-Avenue folder:
-
-cd M-Elsayed9/CTP-Hackathon
 
 3. **Install Node Dependencies**
 
@@ -137,27 +135,6 @@ https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
 
 Now that everything is set up, you can run the application using:
 
-
-**npm start**
+6. **npm start**
 
 This will start the server with nodemon, which will auto-restart upon changes to any files.
-
-7. **Open in Browser**
-
-By default, the application runs on http://localhost:3000. Open this link in your browser to interact with the app.
-
-**IMPORTANT NOTE:** 
-
-we have not implemented an image upload feature, so when prompted to include an image with your post, please use a URL link to an image instead of uploading an image from your device.
-
-or just use these links from the Unsplash API:
->https://source.unsplash.com/collection/10479427/420x340
->https://source.unsplash.com/collection/9265047/420x340
->https://source.unsplash.com/collection/97443817/420x340
->https://source.unsplash.com/collection/65179341/420x340
->https://source.unsplash.com/collection/9542436/420x340
-
-using these links will change the picture whenever you refresh the page.
-**ANOTHER IMPORTANT NOTE**
-
-when you open the application in your browser, there will not be any user/art data. so create a couple of users(no duplicates), add some artwork, and try out our platform! we appreciate your feedback.
